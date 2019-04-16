@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "ad8ab9c9-6c1a-4ffc-9a9a-a56ed7e3aadf",
+		"name": "FDIC_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NORMAL",
+			"item": [
+				{
+					"name": "/banks/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"try {",
+									"    ",
+									"    // Pasrse the API response object",
+									"    // -------------------------------------------------------------",
+									"    obj = JSON.parse(pm.response.text());",
+									"    ",
+									"    ",
+									"    // HTTP header 200 ",
+									"    // -------------------------------------------------------------",
+									"    pm.test(\"Check Status code is 200\", function() {",
+									"        pm.response.to.have.status(200);",
+									"    });",
+									"    ",
+									"    ",
+									"    // Check payment ID",
+									"    // -------------------------------------------------------------",
+									"    pm.test(\"Check institution.NAME available\", function () {",
+									"        pm.expect(pm.response.text()).to.include(\"NAME\");",
+									"    });",
+									"    ",
+									"    if (obj[\"rows\"][0][\"doc\"][\"NAME\"].length < 1) {",
+									"        tests[\"Check institution.NAME available\"] = fail;",
+									"    }",
+									"    else {",
+									"        tests[\"Check institution.NAME available\"] = pass;",
+									"    }",
+									"    ",
+									"}",
+									"catch(err) {",
+									"    tests[\"Parse response JSON or tests\"] = fail;",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/3150447",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"3150447"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/banks/{id} - not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/0000000",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"0000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/banks?asset=",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/getBanks?assets=100,000,000",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"getBanks"
+							],
+							"query": [
+								{
+									"key": "assets",
+									"value": "100,000,000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/banks?name=",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/getBanks?name=Charles Schwab Bank",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"getBanks"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Charles Schwab Bank"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/banks?name= - not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/getBanks?name=Charlie Shab Bank",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"getBanks"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Charlie Shab Bank"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EXCEPTIONS",
+			"item": [
+				{
+					"name": "/banks/{id} - id not a number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/abcdefg",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"abcdefg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/banks?assets= - assets not a number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/getBanks?assets=abc,def,ghi",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"getBanks"
+							],
+							"query": [
+								{
+									"key": "assets",
+									"value": "abc,def,ghi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/banks?name= -",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f1b3c1b-02b6-4280-960d-8eee97ca6591",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e3c3f0b5-d15f-490c-b947-1fc50afa39aa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host_banks}}/Banks/getBanks?name=American Express National  Bank",
+							"host": [
+								"{{host_banks}}"
+							],
+							"path": [
+								"Banks",
+								"getBanks"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "American Express National  Bank"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

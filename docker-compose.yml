@@ -1,0 +1,27 @@
+version: '3'
+services:
+  couchdb:
+    image: couchdb:latest
+    ports:
+      - "5984:5984"
+    environment:
+      - COUCHDB_PASSWORD=couchdbadmin
+      - COUCHDB_USER=couchdbadmin
+    volumes:
+      - couchdb-data:/opt/couchdb/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=local
+    links:
+      - couchdb
+    depends_on:
+      - couchdb
+
+volumes:
+    couchdb-data: 

@@ -1,0 +1,12 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "couchdb": {
+    "name": "couchdb",
+    "connector": "couchdb2",
+    "url": "http://couchdbadmin:couchdbadmin@couchdb:5984",
+    "database": "fdic_institutions2"
+  }
+}
